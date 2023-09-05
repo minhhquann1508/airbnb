@@ -49,14 +49,14 @@ export default function UpdateAvatarForm(props:any) {
     return (
         <form onSubmit={formik.handleSubmit} className='pt-5'>
         <div className="mb-6">
-          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ID</label>
-          <input type="text" disabled={true} value={props.itemId} className='border p-2 w-full rounded-lg'/>
+          <label className="block mb-2 text-sm font-medium text-gray-900">ID</label>
+          <input type="text" disabled={true} value={props.itemId} className='cursor-not-allowed border p-2 w-full rounded-lg'/>
         </div>
         <div className="mb-6">
-          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Chọn file ảnh</label>
+          <label className="block mb-2 text-sm font-medium text-gray-900">Chọn file ảnh</label>
           <input ref={fileRef} type="file" accept=".jpg, .jpeg, .png" name='formFile' onChange={handleChangeFileInput}/>
         </div>
-        <div>
+        <div className='mb-5'>
           <img src={imgSrc} alt="anh" width={150} height={150}/>
         </div>
         <div className='text-right'>

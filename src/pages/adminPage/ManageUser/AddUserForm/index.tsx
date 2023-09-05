@@ -42,32 +42,32 @@ export default function AddUserForm(props:any) {
         <form onSubmit={formik.handleSubmit} className='py-3'>
         <div className="grid sm:grid-cols-2 gap-5">
           <div>
-                <label className="block mb-2 font-medium text-gray-900 dark:text-white">Tên người dùng</label>
-                <input name="name" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.name} type="text" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-pink-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" />
+                <label className="block mb-2 font-medium text-gray-900">Tên người dùng</label>
+                <input name="name" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.name} type="text" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-pink-500 block w-full p-2.5" />
                 {formik.touched.name && formik.errors.name ? <p className="text-red-600">{formik.errors.name}</p> : ''}
             </div>
             <div>
-                <label className="block mb-2 font-medium text-gray-900 dark:text-white">Email</label>
-                <input name="email" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email} type="email" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-pink-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" />
+                <label className="block mb-2 font-medium text-gray-900">Email</label>
+                <input name="email" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email} type="email" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-pink-500 block w-full p-2.5" />
                 {formik.touched.email && formik.errors.email ? <p className="text-red-600">{formik.errors.email}</p> : ''}
             </div>
             <div>
-                <label className="block mb-2 font-medium text-gray-900 dark:text-white">Số điện thoại</label>
-                <input type="text" name="phone" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.phone} className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-pink-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" />
+                <label className="block mb-2 font-medium text-gray-900">Số điện thoại</label>
+                <input type="text" name="phone" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.phone} className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-pink-500 block w-full p-2.5" />
                 {formik.touched.phone && formik.errors.phone ? <p className="text-red-600">{formik.errors.phone}</p> : ''}
             </div>
             <div>
-                <label className="block mb-2 font-medium text-gray-900 dark:text-white">Mật khẩu</label>
-                <input type="password" name="password" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.password} className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-pink-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" />
+                <label className="block mb-2 font-medium text-gray-900">Mật khẩu</label>
+                <input type="password" name="password" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.password} className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-pink-500 block w-full p-2.5" />
                 {formik.touched.password && formik.errors.password ? <p className="text-red-600">{formik.errors.password}</p> : ''}
             </div>
             <div>
-                <label className="block mb-2 font-medium text-gray-900 dark:text-white">Ngày sinh</label>
-                <input type="date" name="birthday" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.birthday} className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-pink-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" />
+                <label className="block mb-2 font-medium text-gray-900">Ngày sinh</label>
+                <input type="date" name="birthday" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.birthday} className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-pink-500 block w-full p-2.5" />
                 {formik.touched.birthday && formik.errors.birthday ? <p className="text-red-600">{formik.errors.birthday}</p> : ''}
             </div>
             <div>
-                <label className="block mb-2 font-medium text-gray-900 dark:text-white">Giới tính</label>
+                <label className="block mb-2 font-medium text-gray-900">Giới tính</label>
                 <Select
                   onChange={(value) => handleChangeGenderInput(Boolean(value))}
                   defaultValue="Nam"
@@ -81,7 +81,7 @@ export default function AddUserForm(props:any) {
                   />
             </div>
             <div className='col-span-full'>
-                <label className="block mb-2 font-medium text-gray-900 dark:text-white">Loại người dùng</label>
+                <label className="block mb-2 font-medium text-gray-900">Loại người dùng</label>
                 <Select
                   onChange={(value) => handleChangeRoleInput(String(value))}
                   defaultValue="Khách hàng"
@@ -96,7 +96,7 @@ export default function AddUserForm(props:any) {
             </div>
         </div>
         <div className='flex justify-end items-center my-5'>
-            <button type="submit" className="text-white bg-pink-600 hover:bg-pink-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Đăng ký</button>
+            <button type="submit" className="text-white bg-pink-600 hover:bg-pink-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center duration-300">Đăng ký</button>
         </div>
         <div className='text-center'>
           <p className='text-sm'>Bạn đã có tài khoản ? <NavLink className='text-pink-500 underline hover:text-pink-600' to='/login'>Đăng nhập ngay.</NavLink></p>

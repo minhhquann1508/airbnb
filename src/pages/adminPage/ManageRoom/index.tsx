@@ -56,7 +56,7 @@ export default function ManageRoom() {
   const renderTableContent = ():JSX.Element => {
     return data?.data.map((room:RoomFormat) => {
         return (
-            <tr key={room.id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+            <tr key={room.id} className="bg-white border-b">
                 <th className="px-6 py-4">
                     {room.id}
                 </th>
@@ -124,11 +124,11 @@ export default function ManageRoom() {
         <Modal footer="" title="Cập nhật avatar" open={isAddAvatarModalOpen} onOk={handleAddAvatarModalOk} onCancel={handleAddAvatarModalCancel}>
             <UpdateAvatarForm itemId={activeItem?.id} closeModal={handleAddAvatarModalOk} activePage={activePage}/>
         </Modal>
-        <Modal footer="" title="Cập nhật avatar" open={isUpdateModalOpen} onOk={handleUpdateModalOk} onCancel={handleUpdateModalCancel}>
+        <Modal footer="" title="Cập nhật thông tin" open={isUpdateModalOpen} onOk={handleUpdateModalOk} onCancel={handleUpdateModalCancel}>
             <UpdateForm itemData={activeItem} closeModal={handleUpdateModalOk} activePage={activePage}/>
         </Modal>
         <h1 className="text-2xl font-medium mb-5">Quản lý phòng</h1>
-        <div className="flex  flex-col md:justify-end md:flex-row gap-3 mb-5">
+        <div className="flex flex-col md:justify-end md:flex-row gap-3 mb-5">
             <form>
                 <input type="text" name="keyword" placeholder="Tìm kiếm..." className="border bg-gray-50 border-r-0 p-2 rounded-l-lg focus:outline-none"/>
                 <button className="p-2 text-white font-medium rounded-r-lg bg-pink-600 border border-pink-600 hover:bg-pink-700 duration-300"><FontAwesomeIcon icon={faSearch}/></button>
@@ -136,8 +136,8 @@ export default function ManageRoom() {
             <button className="w-fit p-2 bg-pink-600 text-white font-medium rounded-lg hover:bg-pink-700 duration-300" onClick={showAddModal}>Thêm phòng mới</button>
         </div>
         <div className="relative overflow-x-auto">
-            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table className="w-full text-sm text-left text-gray-500">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
                     <th scope="col" className="px-6 py-3">
                         Mã phòng

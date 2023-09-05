@@ -87,7 +87,7 @@ export default function ManageLocation() {
   const renderTableContent = ():JSX.Element => {
     return data?.data.map((item:LocationFormat) => {
         return (
-            <tr key={item.id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+            <tr key={item.id} className="bg-white border-b">
                 <th className="px-6 py-4">
                     {item.id}
                 </th>
@@ -129,7 +129,7 @@ export default function ManageLocation() {
       <Modal footer="" title="Cập nhật avatar" open={isAddAvatarModalOpen} onOk={handleAddAvatarModalOk} onCancel={handleAddAvatarModalCancel}>
           <AddAvatarForm itemId={activeId} closeModal={handleAddAvatarModalOk} activePage={activePage}/>
       </Modal>
-      <Modal footer="" title="Cập nhật avatar" open={isUpdateModalOpen} onOk={handleUpdateModalOk} onCancel={handleUpdateModalCancel}>
+      <Modal footer="" title="Cập nhật thông tin" open={isUpdateModalOpen} onOk={handleUpdateModalOk} onCancel={handleUpdateModalCancel}>
           <UpdateForm itemData={activeItem} closeModal={handleUpdateModalOk} activePage={activePage}/>
       </Modal>
       <h1 className="text-2xl font-medium mb-5">Quản lý vị trí</h1>
@@ -141,8 +141,8 @@ export default function ManageLocation() {
           <button className="w-fit p-2 bg-pink-600 text-white font-medium rounded-lg hover:bg-pink-700 duration-300" onClick={showAddModal}>Thêm vị trí mới</button>
       </div>
       <div className="relative overflow-x-auto">
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <table className="w-full text-sm text-left text-gray-500">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50">
               <tr>
                   <th scope="col" className="px-6 py-3">
                       ID

@@ -87,7 +87,7 @@ export default function Journey():JSX.Element {
 
     return (
         <section className='container mx-auto px-5 md:px-0 py-10'>
-            <h1 className='text-3xl font-medium mb-7'>Chuyến đi</h1>
+            <h1 className='text-2xl md:text-3xl font-medium mb-7'>Chuyến đi</h1>
             <div className='flex gap-10 flex-col-reverse lg:flex-row'>
                 {/* Phần trái */}
                 <div className='w-full lg:w-2/3'>

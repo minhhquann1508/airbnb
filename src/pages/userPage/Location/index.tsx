@@ -63,15 +63,15 @@ export default function LocationPage() {
     }
   }
   return (
-    <section className="container mx-auto py-10">
-      <div className="flex justify-between mb-10">
-        <h1 className="font-medium text-3xl">Danh sách điểm đến</h1>
+    <section className="container mx-auto py-10 px-5 md:px-0">
+      <div className="flex justify-between flex-col gap-3 md:flex-row mb-5 md:mb-10">
+        <h1 className="font-medium text-2xl md:text-3xl">Danh sách điểm đến</h1>
         <form onSubmit={formik.handleSubmit} className="border rounded-full relative overflow-hidden p-3 bg-gray-50 hover:bg-gray-200">
           <input type="text" name="keyword" onChange={formik.handleChange} className="font-medium focus:outline-none bg-transparent" placeholder="Tìm kiếm địa điểm"/>
           <button type="submit" className="absolute right-1 top-1 p-3 text-white w-10 h-10 rounded-full bg-pink-600 flex items-center justify-center"><FontAwesomeIcon icon={faSearch}/></button>
         </form>
       </div>
-      <div className="grid grid-cols-4 gap-5 mb-10">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-10">
           {renderLocationItem()}          
       </div>
       {/* Phần phân trang */}

@@ -9,7 +9,7 @@ import {
 import { Layout, Menu, Button, theme } from 'antd';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouseUser, faLocation, faReceipt, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faHouseUser, faLocation, faReceipt, faRightFromBracket, faUsers } from '@fortawesome/free-solid-svg-icons';
 const { Header, Sider, Content } = Layout;
 
 export default function AdminTemplate() {
@@ -23,13 +23,11 @@ export default function AdminTemplate() {
 
   return (
     <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="demo-logo-vertical" />
+      <Sider className='relative' style={{background:'#fff'}} trigger={null} collapsible collapsed={collapsed}>
         <Menu
-          theme="dark"
-          mode="inline"
           defaultSelectedKeys={[navbarKey]}
           onClick={({key})=> navigate(`/admin/${key}`)}
+          className='text-black font-medium'
           items={[
             {
               key: 'manageUser',
@@ -55,7 +53,7 @@ export default function AdminTemplate() {
         />
       </Sider>
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }}>
+        <Header className='flex items-center' style={{ padding: '0', background: colorBgContainer }}>
           <Button
             type="text"
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -66,6 +64,17 @@ export default function AdminTemplate() {
               height: 64,
             }}
           />
+          <button className='mr-5' onClick={() => navigate('/')}>
+            <img src="./../img/airbnb_logo.png" alt="logo" className='w-20 h-20'/>
+          </button>
+          <button className='underline font-medium hover:text-pink-600 duration-300' onClick={() => {
+            localStorage.clear();
+            navigate('/login')
+            window.location.reload();
+          }}>
+            <span className='mr-2'>Đăng xuất</span>
+            <FontAwesomeIcon icon={faRightFromBracket} />
+          </button>
         </Header>
         <Content
           style={{

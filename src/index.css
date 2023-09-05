@@ -65,6 +65,12 @@ input::-webkit-inner-spin-button {
 .ant-pagination .ant-pagination-item-active {
   border-color: rgba(219,39,119,1) !important;
 }
+.ant-menu-light .ant-menu-item-selected {
+  background-color: rgba(219,39,119,1) !important;
+}
+.ant-menu-light .ant-menu-item-selected {
+  color: #fff !important;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

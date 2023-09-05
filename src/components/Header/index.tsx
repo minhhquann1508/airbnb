@@ -31,13 +31,13 @@ export default function Header():JSX.Element {
     if(userLogin && userLogin?.user?.avatar !== "") {
       return (
         <button className=''>
-          <img className='w-7 h-7 rounded-full' src={userLogin?.user?.avatar} alt="avatar" />
+          <img className='w-5 h-5 md:w-7 md:h-7 rounded-full' src={userLogin?.user?.avatar} alt="avatar" />
         </button>
       )
     }
     else {
       return (
-        <button className='bg-black text-white w-7 h-7 rounded-full'><FontAwesomeIcon icon={faUser} /></button>
+        <button className='bg-black text-white w-5 h-5 md:w-7 md:h-7 rounded-full'><FontAwesomeIcon icon={faUser} /></button>
       )
     }
   }
@@ -145,7 +145,7 @@ export default function Header():JSX.Element {
   }
   return (
     <header>
-      <nav className="lg:p-4 dark:bg-gray-800 py-3.5 dark:text-gray-100 shadow-lg fixed w-full bg-white z-20">
+      <nav className="lg:p-4 py-3.5 dark:text-gray-100 shadow-lg fixed w-full bg-white z-20">
         <div className="lg:container flex justify-center md:justify-between items-center h-16 mx-auto">
           {/* Phần logo */}
           <NavLink to='/' className="hidden md:block p-2">
@@ -154,13 +154,13 @@ export default function Header():JSX.Element {
           {/* Phần tìm kiếm nội dung */}
           <ul className={`${!showTab ? 'flex' : 'hidden'} items-center border py-1 px-2 rounded-full shadow-xl`} onClick={() => setShowTab(!showTab)}>
             <li className="flex">
-              <button className='text-sm font-medium border-r p-2'>Địa điểm bất kì</button>
+              <button className='text-xs md:text-sm font-medium border-r p-2 text-black'>Địa điểm bất kì</button>
             </li>
             <li className="flex">
-              <button className='text-sm font-medium border-r p-2'>Tuần bất kì</button>
+              <button className='text-xs md:text-sm font-medium border-r p-2 text-black'>Tuần bất kì</button>
             </li>
             <li className="flex">
-              <button className='text-sm font-medium p-2'>Thêm khách</button>
+              <button className='text-xs md:text-sm font-medium p-2 text-black'>Thêm khách</button>
             </li>
             <li className="flex">
               <button className='text-sm font-medium w-8 h-8 text-white rounded-full bg-pink-600'><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
@@ -169,22 +169,22 @@ export default function Header():JSX.Element {
           {/* Modal khi hiện dropdown */}
           <ul className={`${showTab ? 'flex' : 'hidden'} items-center gap-2 py-1 px-2`} onClick={() => setShowTab(!showTab)}>
             <li className="flex">
-              <button className='text-sm font-medium p-2'>Chỗ ở</button>
+              <button className='text-xs md:text-sm font-medium p-2 text-black'>Chỗ ở</button>
             </li>
             <li className="flex">
-              <button className='text-sm font-medium p-2'>Trải nghiệm</button>
+              <button className='text-xs md:text-sm font-medium p-2 text-black'>Trải nghiệm</button>
             </li>
             <li className="flex">
-              <button className='text-sm font-medium p-2'>Trải nghiệm trực tuyến</button>
+              <button className='text-xs md:text-sm font-medium p-2 text-black'>Trải nghiệm trực tuyến</button>
             </li>
           </ul>
           {/* Phần các option lựa chọn */}
-          <div className='hidden md:flex gap-2 items-center'>
-            <button className='hover:duration-300 hover:bg-gray-100 p-2 rounded-full text-sm font-medium'>Trở thành chủ nhà</button>
-            <button className='hover:duration-300 hover:bg-gray-100 w-8 h-8 rounded-full'><FontAwesomeIcon icon={faGlobe} /></button>
+          <div className='flex gap-2 items-center'>
+            <button className='hidden md:block hover:duration-300 hover:bg-gray-100 p-2 rounded-full text-sm font-medium'>Trở thành chủ nhà</button>
+            <button className='hidden md:block hover:duration-300 hover:bg-gray-100 w-8 h-8 rounded-full'><FontAwesomeIcon icon={faGlobe} /></button>
             <Dropdown placement='bottomRight' overlayStyle={{width:200}} menu={{ items }} trigger={['click']}>
-              <div className='flex items-center gap-4 rounded-full border py-2 px-4 cursor-pointer hover:shadow-xl duration-300'>
-                <button><FontAwesomeIcon icon={faBars} /></button>
+              <div className='flex items-center gap-2 md:gap-4 rounded-full border py-2 px-4 cursor-pointer hover:shadow-xl duration-300'>
+                <button><FontAwesomeIcon icon={faBars} className='text-black'/></button>
                 {renderAvatarBtn()}
               </div>
             </Dropdown>
@@ -194,7 +194,7 @@ export default function Header():JSX.Element {
         <form onSubmit={formik.handleSubmit} className={`${showTab ? 'flex' : 'hidden'} justify-center mt-3`}>
           <ul className='flex border-2 rounded-full bg-gray-100'>
             <li key={1} className={`${active === 1 ? 'bg-white shadow-xl' : ''} md:w-auto py-1 px-3 rounded-full flex items-center`} onClick={() => isActive(1)}>
-              <label className='font-medium text-sm'>Địa điểm</label>
+              <label className='font-medium text-sm text-black'>Địa điểm</label>
               <Select
                 style={{ width: 200 }}
                 bordered={false}
@@ -219,7 +219,7 @@ export default function Header():JSX.Element {
               </li>
             </div>
             <li className='md:px-2 flex items-center'>
-              <button type='submit' className='bg-red-700 p-2 text-white rounded-full text-sm font-medium'>Tìm kiếm</button>
+              <button type='submit' className='bg-red-700 p-2 text-white rounded-full text-xs md:text-sm font-medium'>Tìm kiếm</button>
             </li>
           </ul>
         </form>

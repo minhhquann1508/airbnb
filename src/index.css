@@ -1,3 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -6,7 +9,62 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.swiper-button-next,
+.swiper-button-prev {
+  border: 1px solid #ccc;
+  width: 25px !important;
+  height:  25px !important;
+  border-radius: 50%;
+  background-color: #fff;
+}
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 14px !important;
+  color: #8888 !important;
+  font-weight: 700;
+}
+.custom-range-picker .ant-picker-active-bar {
+  background-color: transparent; /* Tắt màu xanh active */
+  height: 0; /* Ẩn thanh active */
+}
+.custom-range-picker:focus {
+  outline: 1.5px solid black;
+}
+.ant-picker-cell-inner {
+  border-radius: 50% !important;
+}
+.ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner::before {
+  border-radius: 50%;
+  border: none !important;
+}
+.ant-picker-dropdown .ant-picker-cell .ant-picker-cell-inner {
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  color: black;
+  font-weight: 600;
+}
+.ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner,
+.ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner{
+  background: black !important;
+} 
+.ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-range-end:not(.ant-picker-cell-range-end-single)::before,
+.ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-in-range::before,
+.ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-range-start:not(.ant-picker-cell-range-start-single)::before {
+  background: #f4f2f2 !important;
+}
+.ant-pagination .ant-pagination-item-active a {
+  color: rgba(219,39,119,1) !important;
+}
+.ant-pagination .ant-pagination-item-active {
+  border-color: rgba(219,39,119,1) !important;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

@@ -53,7 +53,7 @@ export const getListCommentAction = (id:number):any => {
     }
 }
 
-export const bookingRoomAction = (model:BookingRoomForm):any => {
+export const bookingRoomAction = (model:BookingRoomForm,closeModal:any):any => {
     return async (dispatch:any) => {
         try {
             let result = await manageCommentsService.bookingRoom(model);
@@ -66,6 +66,7 @@ export const bookingRoomAction = (model:BookingRoomForm):any => {
                     title: 'Chúc mừng !',
                     text: 'Bạn đã đặt phòng thành công !',
                 })
+                await closeModal();
             }
         } 
         catch (error:any) {

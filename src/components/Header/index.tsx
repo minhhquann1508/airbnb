@@ -9,6 +9,7 @@ import { RootState } from '../../redux/store';
 import { fetchData } from './duck/actions';
 import { LocationFormat } from '../../types';
 import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 
 export default function Header():JSX.Element {
   const [active,isActive] = useState<number>(1);
@@ -16,6 +17,7 @@ export default function Header():JSX.Element {
   const {userLogin} = useSelector((state:RootState) => state.loginReducer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const {t} = useTranslation();
   const {data,loading,error} = useSelector((state:RootState) => state.locationReducer);
   const formik = useFormik({
     initialValues:{
@@ -52,23 +54,19 @@ export default function Header():JSX.Element {
   if(!userLogin) {
     items = [  
       {
-        label: <NavLink to='/register' className='font-medium'>Đăng ký</NavLink>,
+        label: <NavLink to='/register' className='font-medium'>{t("register")}</NavLink>,
         key: '0',
       },
       {
-        label: <NavLink className='font-medium' to='/login'>Đăng nhập</NavLink>,
+        label: <NavLink className='font-medium' to='/login'>{t("login")}</NavLink>,
         key: '1',
       },
       {
-        label: <NavLink to='/location/all' className='font-medium'>Danh sách điểm đến</NavLink>,
+        label: <NavLink to='/location/all' className='font-medium'>{t("list_of_destinations")}</NavLink>,
         key: '2',
       },
       {
-        label: <NavLink to='/' className='font-medium'>Tổ chức trải nghiệm</NavLink>,
-        key: '3',
-      },
-      {
-        label: <NavLink to='/help' className='font-medium'>Trung tâm hỗ trợ</NavLink>,
+        label: <NavLink to='/help' className='font-medium'>{t("help")}</NavLink>,
         key: '4',
       },
     ];
@@ -77,27 +75,23 @@ export default function Header():JSX.Element {
     if(userLogin?.user?.role.toLowerCase() === 'admin') {
       items = [  
         {
-          label: <NavLink to={`/infomation/${userLogin?.user?.id}`} className='font-medium'>Thông tin cá nhân</NavLink>,
+          label: <NavLink to={`/infomation/${userLogin?.user?.id}`} className='font-medium'>{t("infomation")}</NavLink>,
           key: '0',
         },
         {
-          label: <NavLink to={`/admin/manageUser`} className='font-medium'>Trang quản trị</NavLink>,
+          label: <NavLink to={`/admin/manageUser`} className='font-medium'>{t("admin")}</NavLink>,
           key: '7',
         },
         {
-          label: <NavLink className='font-medium' to={`/journey/${userLogin?.user.id}`}>Quản lý chuyến đi</NavLink>,
+          label: <NavLink className='font-medium' to={`/journey/${userLogin?.user.id}`}>{t("trip")}</NavLink>,
           key: '1',
         },
         {
-          label: <NavLink to='/location/all' className='font-medium'>Danh sách điểm đến</NavLink>,
+          label: <NavLink to='/location/all' className='font-medium'>{t("list_of_destinations")}</NavLink>,
           key: '5',
         },
         {
-          label: <NavLink to='/' className='font-medium'>Cho thuê nhà</NavLink>,
-          key: '2',
-        },
-        {
-          label: <NavLink to='/help' className='font-medium'>Trung tâm hỗ trợ</NavLink>,
+          label: <NavLink to='/help' className='font-medium'>{t("help")}</NavLink>,
           key: '3',
         },
         {
@@ -105,7 +99,7 @@ export default function Header():JSX.Element {
             localStorage.clear();
             navigate('/login');
             window.location.reload();
-          }}>Đăng xuất</button>,
+          }}>{t("log_out")}</button>,
           key: '4',
         },
       ];
@@ -113,23 +107,19 @@ export default function Header():JSX.Element {
     else {
       items = [  
         {
-          label: <NavLink to={`/infomation/${userLogin?.user?.id}`} className='font-medium'>Thông tin cá nhân</NavLink>,
+          label: <NavLink to={`/infomation/${userLogin?.user?.id}`} className='font-medium'>{t("infomation")}</NavLink>,
           key: '0',
         },
         {
-          label: <NavLink className='font-medium' to={`/journey/${userLogin?.user?.id}`}>Quản lý chuyến đi</NavLink>,
+          label: <NavLink className='font-medium' to={`/journey/${userLogin?.user?.id}`}>{t("trip")}</NavLink>,
           key: '1',
         },
         {
-          label: <NavLink to='/location/all' className='font-medium'>Danh sách điểm đến</NavLink>,
+          label: <NavLink to='/location/all' className='font-medium'>{t("list_of_destinations")}</NavLink>,
           key: '5',
         },
         {
-          label: <NavLink to='/' className='font-medium'>Cho thuê nhà</NavLink>,
-          key: '2',
-        },
-        {
-          label: <NavLink to='/help' className='font-medium'>Trung tâm hỗ trợ</NavLink>,
+          label: <NavLink to='/help' className='font-medium'>{t("help")}</NavLink>,
           key: '3',
         },
         {
@@ -137,7 +127,7 @@ export default function Header():JSX.Element {
             localStorage.clear();
             navigate('/login');
             window.location.reload();
-          }}>Đăng xuất</button>,
+          }}>{t("log_out")}</button>,
           key: '4',
         },
       ];
@@ -154,13 +144,13 @@ export default function Header():JSX.Element {
           {/* Phần tìm kiếm nội dung */}
           <ul className={`${!showTab ? 'flex' : 'hidden'} items-center border py-1 px-2 rounded-full shadow-xl`} onClick={() => setShowTab(!showTab)}>
             <li className="flex">
-              <button className='text-xs md:text-sm font-medium border-r p-2 text-black'>Địa điểm bất kì</button>
+              <button className='text-xs md:text-sm font-medium border-r p-2 text-black'>{t("location")}</button>
             </li>
             <li className="flex">
-              <button className='text-xs md:text-sm font-medium border-r p-2 text-black'>Tuần bất kì</button>
+              <button className='text-xs md:text-sm font-medium border-r p-2 text-black'>{t("time")}</button>
             </li>
             <li className="flex">
-              <button className='text-xs md:text-sm font-medium p-2 text-black'>Thêm khách</button>
+              <button className='text-xs md:text-sm font-medium p-2 text-black'>{t("guest")}</button>
             </li>
             <li className="flex">
               <button className='text-sm font-medium w-8 h-8 text-white rounded-full bg-pink-600'><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
@@ -169,18 +159,18 @@ export default function Header():JSX.Element {
           {/* Modal khi hiện dropdown */}
           <ul className={`${showTab ? 'flex' : 'hidden'} items-center gap-2 py-1 px-2`} onClick={() => setShowTab(!showTab)}>
             <li className="flex">
-              <button className='text-xs md:text-sm font-medium p-2 text-black'>Chỗ ở</button>
+              <button className='text-xs md:text-sm font-medium p-2 text-black'>{t("place")}</button>
             </li>
             <li className="flex">
-              <button className='text-xs md:text-sm font-medium p-2 text-black'>Trải nghiệm</button>
+              <button className='text-xs md:text-sm font-medium p-2 text-black'>{t("experience")}</button>
             </li>
             <li className="flex">
-              <button className='text-xs md:text-sm font-medium p-2 text-black'>Trải nghiệm trực tuyến</button>
+              <button className='text-xs md:text-sm font-medium p-2 text-black'>{t("online_experience")}</button>
             </li>
           </ul>
           {/* Phần các option lựa chọn */}
           <div className='flex gap-2 items-center'>
-            <button className='hidden md:block hover:duration-300 hover:bg-gray-100 p-2 rounded-full text-sm font-medium'>Trở thành chủ nhà</button>
+            <button className='hidden md:block hover:duration-300 hover:bg-gray-100 p-2 rounded-full text-sm font-medium'>{t("become_host")}</button>
             <button className='hidden md:block hover:duration-300 hover:bg-gray-100 w-8 h-8 rounded-full'><FontAwesomeIcon icon={faGlobe} /></button>
             <Dropdown placement='bottomRight' overlayStyle={{width:200}} menu={{ items }} trigger={['click']}>
               <div className='flex items-center gap-2 md:gap-4 rounded-full border py-2 px-4 cursor-pointer hover:shadow-xl duration-300'>
@@ -194,7 +184,7 @@ export default function Header():JSX.Element {
         <form onSubmit={formik.handleSubmit} className={`${showTab ? 'flex' : 'hidden'} justify-center mt-3`}>
           <ul className='flex border-2 rounded-full bg-gray-100'>
             <li key={1} className={`${active === 1 ? 'bg-white shadow-xl' : ''} md:w-auto py-1 px-3 rounded-full flex items-center`} onClick={() => isActive(1)}>
-              <label className='font-medium text-sm text-black'>Địa điểm</label>
+              <label className='font-medium text-sm text-black'>{t("location")}</label>
               <Select
                 style={{ width: 200 }}
                 bordered={false}
@@ -204,22 +194,22 @@ export default function Header():JSX.Element {
             </li>
             <div className='hidden md:flex'>
               <li key={2} className={`${active === 2 ? 'bg-white shadow-xl' : ''} py-1 px-3 rounded-full flex flex-col gap-1 items-center`} onClick={() => isActive(2)}>
-                <label className='font-medium text-sm'>Nhận phòng</label>
+                <label className='font-medium text-sm'>{t("check_in")}</label>
                 <input type="date" className='bg-transparent outline-none' />
               </li>
               <li key={3} className={`${active === 3 ? 'bg-white shadow-xl' : ''} py-1 px-3 rounded-full flex flex-col gap-1 items-center`} onClick={() => isActive(3)}>
-                <label className='font-medium text-sm'>Nhận phòng</label>
+                <label className='font-medium text-sm'>{t("check_out")}</label>
                 <input type="date" className='bg-transparent outline-none' />
               </li>
               <li key={4} className={`${active === 4 ? 'bg-white shadow-xl' : ''} py-1 px-5 rounded-full flex gap-5 items-center`} onClick={() => isActive(4)}>
                 <div className='flex flex-col'>
-                  <label className='font-medium text-sm'>Số khách</label>
+                  <label className='font-medium text-sm'>{t("add_guest")}</label>
                   <input type="number" min={0} max={15} className='bg-transparent outline-none appearance-none' style={{WebkitAppearance:'none'}}/>
                 </div>
               </li>
             </div>
             <li className='md:px-2 flex items-center'>
-              <button type='submit' className='bg-red-700 p-2 text-white rounded-full text-xs md:text-sm font-medium'>Tìm kiếm</button>
+              <button type='submit' className='bg-pink-600 p-2 text-white rounded-full text-xs md:text-sm font-medium'>{t("finding")}</button>
             </li>
           </ul>
         </form>

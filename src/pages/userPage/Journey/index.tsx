@@ -13,10 +13,16 @@ export default function Journey():JSX.Element {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const {loading,data,error} = useSelector((state:RootState) => state.journeyReducer);
+    const {userLogin} = useSelector((state:RootState) => state.loginReducer);
     const {id}  = useParams();
     useEffect(() => {
-        dispatch(fetchData(Number(id)))
-    },[])
+        if(!userLogin) {
+            navigate('/')
+        }
+        else {
+            dispatch(fetchData(Number(id)))
+        }
+    },[id])
     const renderListJourney = ():JSX.Element => {
         if(loading) {
             return (

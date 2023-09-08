@@ -7,12 +7,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
 import dayjs from 'dayjs';
 import { fetchData } from './duck/actions';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import UpdateAvatar from './UpdateAvatar';
 export default function Infomation() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const {id} = useParams();
     const {loading,data,error} = useSelector((state:RootState) => state.infomationReducer);
+    const {userLogin} = useSelector((state:RootState) => state.loginReducer);
+    useEffect(() => {
+        if(!userLogin) {
+            navigate('/')
+        }
+    },[id])
+
     const showInfoModal = () => {
         setIsModalInfoOpen(true);
     };

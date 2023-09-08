@@ -11,6 +11,7 @@ import AddRoomForm from "./AddRoomForm";
 import Swal from "sweetalert2";
 import UpdateForm from "./UpdateForm";
 import UpdateAvatarForm from "./UpdateAvatarForm";
+import { useFormik } from "formik";
 export default function ManageRoom() {
   const dispatch = useDispatch();
   const [activePage,setActivepage] = useState<number>(1);
@@ -116,6 +117,22 @@ export default function ManageRoom() {
     setIsAddAvatarModalOpen(false);
   };
 
+  const formik = useFormik({
+    initialValues:{
+      keyword:'',
+    },
+    onSubmit:(values) => {
+      setActivepage(1);
+      dispatch(fetchData(values.keyword,activePage))
+    }
+  })
+
+  const findingRoomByName = (e:any) => {
+    let keyword = e.target.value; 
+    setActivepage(1);
+    dispatch(fetchData(keyword,activePage))
+  }
+
   return (
       <>
         <Modal footer="" title="Thêm phòng mới" open={isAddModalOpen} onOk={handleAddModalOk} onCancel={handleAddModalCancel}>
@@ -129,8 +146,8 @@ export default function ManageRoom() {
         </Modal>
         <h1 className="text-2xl font-medium mb-5">Quản lý phòng</h1>
         <div className="flex flex-col md:justify-end md:flex-row gap-3 mb-5">
-            <form>
-                <input type="text" name="keyword" placeholder="Tìm kiếm..." className="border bg-gray-50 border-r-0 p-2 rounded-l-lg focus:outline-none"/>
+            <form onSubmit={formik.handleSubmit}>
+                <input type="text" name="keyword" onChange={(e) => findingRoomByName(e)} placeholder="Tìm kiếm..." className="border bg-gray-50 border-r-0 p-2 rounded-l-lg focus:outline-none"/>
                 <button className="p-2 text-white font-medium rounded-r-lg bg-pink-600 border border-pink-600 hover:bg-pink-700 duration-300"><FontAwesomeIcon icon={faSearch}/></button>
             </form>
             <button className="w-fit p-2 bg-pink-600 text-white font-medium rounded-lg hover:bg-pink-700 duration-300" onClick={showAddModal}>Thêm phòng mới</button>

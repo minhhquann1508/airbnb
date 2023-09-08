@@ -6,7 +6,9 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { lstCategory } from '../../util/constants';
 import style from './style.module.css'
+import { useTranslation } from 'react-i18next';
 export default function Category() {
+  const { t } = useTranslation();
   return (
     <Swiper
       className='container'
@@ -30,7 +32,7 @@ export default function Category() {
           <SwiperSlide key={index}>
             <div className={`${style['swiperItem']} cursor-pointer relative flex flex-col items-center justify-center pt-12 pb-8 gap-2`}>
               <img src={`./img/category${(index + 1)}.jpg`} width={25} height={25} alt="logo" />
-              <label className='text-xs text-gray-500'>{lstCategory[index]}</label>
+              <label className='text-xs text-gray-500'>{t(lstCategory[index])}</label>
             </div>
           </SwiperSlide>
         )

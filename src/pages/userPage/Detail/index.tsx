@@ -57,7 +57,7 @@ export default function Detail():JSX.Element {
                     <FontAwesomeIcon key={index} className='text-yellow-500' icon={faStar} /> 
                   )
               })}</p>
-              <div className={`${(userLogin?.user.role).toLowerCase() === 'admin' ? 'flex' : 'hidden'} px-2 gap-3`}>
+              <div className={`${(userLogin?.user.role)?.toLowerCase() === 'admin' ? 'flex' : 'hidden'} px-2 gap-3`}>
                 <button className='text-sm text-gray-500 hover:underline hover:text-green-600 duration-300'>Chỉnh sửa</button>
                 <button className='text-sm text-gray-500 hover:underline hover:text-red-600 duration-300'
                   onClick={() => deleteComment(user.id,Number(id))}

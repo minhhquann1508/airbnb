@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -9,14 +9,23 @@ import {
 import { Layout, Menu, Button, theme } from 'antd';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouseUser, faLocation, faReceipt, faRightFromBracket, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faHouseUser, faLocation, faReceipt, faRightFromBracket, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 const { Header, Sider, Content } = Layout;
 
 export default function AdminTemplate() {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const {userLogin} = useSelector((state:RootState) => state.loginReducer);
   const {pathname} = useLocation();
   let navbarKey = pathname.split('/')[2];
+  useEffect(() => {
+    if(userLogin?.user.role.toLowerCase() !== 'admin') {
+      navigate('/')
+    }
+  }, [location])
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -26,9 +35,21 @@ export default function AdminTemplate() {
       <Sider className='relative' style={{background:'#fff'}} trigger={null} collapsible collapsed={collapsed}>
         <Menu
           defaultSelectedKeys={[navbarKey]}
-          onClick={({key})=> navigate(`/admin/${key}`)}
+          onClick={({key})=> {
+            if(key === '/') {
+              navigate(`/`)
+            }
+            else {
+              navigate(`/admin/${key}`)
+            }
+          }}
           className='text-black font-medium'
           items={[
+            {
+              key: '/',
+              icon: <FontAwesomeIcon icon={faHome} />,
+              label: 'Trang chủ',
+            },
             {
               key: 'manageUser',
               icon: <FontAwesomeIcon icon={faUsers} />,
@@ -64,9 +85,6 @@ export default function AdminTemplate() {
               height: 64,
             }}
           />
-          <button className='mr-5' onClick={() => navigate('/')}>
-            <img src="./../img/airbnb_logo.png" alt="logo" className='w-20 h-20'/>
-          </button>
           <button className='underline font-medium hover:text-pink-600 duration-300' onClick={() => {
             localStorage.clear();
             navigate('/login')

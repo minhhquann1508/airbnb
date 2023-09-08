@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import AddLocationForm from './AddLocationForm';
 import AddAvatarForm from './AddAvatarForm';
 import UpdateForm from './UpdateForm';
+import { useFormik } from 'formik';
 export default function ManageLocation() {
   const dispatch = useDispatch();
   const [activePage,setActivepage] = useState<number>(1);
@@ -65,6 +66,24 @@ export default function ManageLocation() {
   useEffect(() => {
     dispatch(fetchData('',activePage));
   },[activePage])
+
+  //formik
+  const formik = useFormik({
+    initialValues:{
+      keyword:''
+    },
+    onSubmit:(values) => {
+      setActivepage(1);
+      dispatch(fetchData(values.keyword,activePage))
+    }
+  })
+
+  const findingLocationByName = (e:any) => {
+    let keyword = e.target.value; 
+    setActivepage(1);
+    dispatch(fetchData(keyword,activePage))
+  }
+
 
   const handleDeleteUserEvent = (id:number,activePage:number) => {
     Swal.fire({
@@ -134,8 +153,8 @@ export default function ManageLocation() {
       </Modal>
       <h1 className="text-2xl font-medium mb-5">Quản lý vị trí</h1>
       <div className="flex  flex-col md:justify-end md:flex-row gap-3 mb-5">
-          <form>
-              <input type="text" name="keyword" placeholder="Tìm kiếm..." className="border bg-gray-50 border-r-0 p-2 rounded-l-lg focus:outline-none"/>
+          <form onSubmit={formik.handleSubmit}>
+              <input type="text" onChange={(e) => findingLocationByName(e)} name="keyword" placeholder="Tìm kiếm..." className="border bg-gray-50 border-r-0 p-2 rounded-l-lg focus:outline-none"/>
               <button className="p-2 text-white font-medium rounded-r-lg bg-pink-600 border border-pink-600 hover:bg-pink-700 duration-300"><FontAwesomeIcon icon={faSearch}/></button>
           </form>
           <button className="w-fit p-2 bg-pink-600 text-white font-medium rounded-lg hover:bg-pink-700 duration-300" onClick={showAddModal}>Thêm vị trí mới</button>

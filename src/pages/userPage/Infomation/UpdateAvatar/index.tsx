@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import {useFormik} from 'formik';
 import { uploadAvatar } from "../duck/actions";
+import Resizer from 'react-image-file-resizer';
 export default function UpdateAvatar(props:any) {
     const {closeModal} = props;
     const dispatch = useDispatch();
@@ -22,12 +23,24 @@ export default function UpdateAvatar(props:any) {
     const handleChangeFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         let file: File | undefined = e.target.files?.[0];
         if(file) {
+            Resizer.imageFileResizer(
+                file,
+                300,
+                300,
+                'JPEG',
+                70,
+                0,
+                (file) => {
+                  // Gán file hình ảnh sau khi đã nén vào trường "image" trong Formik
+                  formik.setFieldValue('formFile', file);
+                },
+                'file' // Định dạng đầu ra là 'file'
+              );
             const reader = new FileReader();
             reader.readAsDataURL(file)
             reader.onload = (e:any) => {
                 setImgSrc(e.target.result)
             }
-            formik.setFieldValue('formFile',file)
         }
     }
     const resetForm = ():void => {

@@ -9,10 +9,12 @@ import { fetchData } from './duck/actions';
 import { Room } from '../../types';
 import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 export default function LstRoom():JSX.Element  {
     const {loading,data,error} = useSelector((state:RootState) => state.lstRoomReducer)
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const {t} = useTranslation();
     useEffect(() => {
         dispatch(fetchData())
     }, [])
@@ -34,15 +36,15 @@ export default function LstRoom():JSX.Element  {
                                 navigate(`/detail/${room.id}`)
                         }}>
                             <div className='flex items-start gap-3'>
-                                <h1 className="w-full font-medium capitalize text-sm leading-5" style={{fontSize:15.5}}>{room.tenPhong.toLowerCase()}</h1>
+                                <h1 className="w-full font-medium capitalize text-sm leading-5" style={{fontSize:15.5}}>{t(room.tenPhong.toLowerCase())}</h1>
                                 <button className='flex justify-center items-center text-sm gap-1'>
                                     <FontAwesomeIcon className='text-yellow-400' icon={faStar} />
                                     <span className='font-medium'>{(10 - room.giaTien / 100).toFixed(2)}</span>
                                 </button>
                             </div>
                             <p className="text-sm text-gray-600">{room.giaTien * 12} km</p>
-                            <p className="text-sm text-gray-600">{dayjs().format('Ngày DD')}-{dayjs().add(1,'day').format('DD/MM/YYYY')}</p>
-                            <p className="font-semibold text-sm">${room.giaTien}<span className="font-normal"> đêm</span></p>
+                            <p className="text-sm text-gray-600"><span className='capitalize'>{t("days")}</span> {dayjs().format('DD')}-{dayjs().add(1,'day').format('DD/MM/YYYY')}</p>
+                            <p className="font-semibold text-sm">${room.giaTien}<span className="font-normal">/ {t("night")}</span></p>
                         </div>
                     </div>
                 )

@@ -1,7 +1,7 @@
 import { faCircleMinus, faCirclePlus, faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
-import {DatePicker } from 'antd';
+import {DatePicker, Modal } from 'antd';
 import { useState } from 'react';
 import {useFormik} from 'formik'
 import { useParams } from 'react-router-dom';
@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
 import { bookingRoomAction } from '../duck/actions';
 import { BookingRoomForm } from '../../../../types';
+import Swal from 'sweetalert2';
+import PayPalButton from '../../../../components/Payment';
 const { RangePicker } = DatePicker;
 const dateFormat = 'DD/MM/YYYY';
 export default function BookingForm(props:any):JSX.Element {
@@ -17,18 +19,28 @@ export default function BookingForm(props:any):JSX.Element {
     const dispatch = useDispatch();
     const [quantity,setQuantity] = useState<number>(1);
     const [range,setRange] = useState<number>(1);
+    const [dataForm,setDataForm] = useState<any>(null);
     const {userLogin} = useSelector((state:RootState) => state.loginReducer);
     const formik = useFormik({
         initialValues:{
             id: 0,
             maPhong: Number(id),
-            ngayDen: '',
-            ngayDi: '',
+            ngayDen: dayjs(new Date().getTime()).format('DD/MM/YYYY'),
+            ngayDi: dayjs(new Date().getTime()).format('DD/MM/YYYY'),
             soLuongKhach: 1,
             maNguoiDung: userLogin?.user.id || 0,
         },
         onSubmit:(values:BookingRoomForm) => {
-            dispatch(bookingRoomAction(values))
+            if(userLogin) {
+                showModal(values);
+            }
+            else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Bạn cần đăng nhập để đặt phòng!',
+                })
+            }
         }
     })
     let date = dayjs(new Date().getTime()).format('DD/MM/YYYY');
@@ -78,8 +90,32 @@ export default function BookingForm(props:any):JSX.Element {
             setRange(1);
         }
     }
+
+    //Mở modal
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const showModal = (values:BookingRoomForm) => {
+        setDataForm(values)
+        setIsModalOpen(true);
+    };
+
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+
+    const calcTotal = ():number => {
+        return data?.giaTien * range + 5 + 5;
+    }
+
   return (
     <form onSubmit={formik.handleSubmit} className='w-5/6 h-fit border py-6 px-4 rounded-xl shadow-lg'>
+         <Modal footer="" title="Thanh toán" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+            <PayPalButton totalBill={calcTotal()} dataBill={dataForm} closeModal={handleCancel}/>
+        </Modal>
         <div className='flex justify-between mb-5'>
             <h1 className='font-medium text-2xl'>$ {data?.giaTien} <span className='font-light text-gray-700 text-base'>/ đêm</span></h1>
             <div className='flex gap-1 text-sm items-center'>
@@ -124,7 +160,7 @@ export default function BookingForm(props:any):JSX.Element {
         </div>
         <div className='flex justify-between items-center font-medium pt-5' style={{fontSize:16.5}}>
             <p>Tổng trước thuế</p>
-            <p>${data?.giaTien * range + 5 + 5}</p>
+            <p>${calcTotal()}</p>
         </div>
     </form>
   )

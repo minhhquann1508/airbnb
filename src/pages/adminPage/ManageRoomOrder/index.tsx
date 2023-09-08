@@ -9,6 +9,7 @@ import dayjs from 'dayjs';
 import Swal from 'sweetalert2';
 import UpdateForm from './UpdateForm';
 import { JourneyItem } from '../../../types';
+import { useFormik } from 'formik';
 export default function ManageRoomOrder() {
   const dispatch = useDispatch();
   const [itemPerPage] = useState<number>(20);
@@ -16,7 +17,7 @@ export default function ManageRoomOrder() {
   const [activeItem,setActiveItem] = useState(null);
   const {loading,data,error} = useSelector((state:RootState) => state.manageRoomOrderAdminReducer);
   useEffect(() => {
-    dispatch(fetchData());
+    dispatch(fetchData(''));
   },[])
   
   const handleDeleteUserEvent = (id:number) => {
@@ -85,21 +86,12 @@ export default function ManageRoomOrder() {
         )
     })
 }
-
-
-
   return (
     <>
       <Modal footer="" title="Cập nhật thông tin" open={isUpdateModalOpen} onOk={handleUpdateModalOk} onCancel={handleUpdateModalCancel}>
           <UpdateForm itemData={activeItem} closeModal={handleUpdateModalOk}/>
       </Modal>
       <h1 className="text-2xl font-medium mb-5">Quản lý đặt phòng</h1>
-      <div className="flex  flex-col md:justify-end md:flex-row gap-3 mb-5">
-          <form>
-              <input type="text" name="keyword" placeholder="Tìm kiếm..." className="border bg-gray-50 border-r-0 p-2 rounded-l-lg focus:outline-none"/>
-              <button className="p-2 text-white font-medium rounded-r-lg bg-pink-600 border border-pink-600 hover:bg-pink-700 duration-300"><FontAwesomeIcon icon={faSearch}/></button>
-          </form>
-      </div>
       <div className="relative overflow-x-auto">
           <table className="w-full text-sm text-left text-gray-500">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50">

@@ -22,6 +22,7 @@ export const loginAction = (data:any,navigate:any,resetForm:any):any => {
                     await navigate('/');
                 }
                 await resetForm();
+                window.location.reload();
             }
         } 
         catch (error:any) {

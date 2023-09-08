@@ -22,12 +22,20 @@ const fetchDataRequestFailAction = (error:any):Action => {
     }
 }
 
-export const fetchData = ():any => {
+export const fetchData = (keyword:string):any => {
     return async (dispatch:any) => {
         dispatch(fetchDataRequestAction());
         try {
             let result = await manageOrderService.getLstOrder();
-            dispatch(fetchDataRequestSuccessAction(result.data.content))
+            if(keyword.trim() === '') {
+                dispatch(fetchDataRequestSuccessAction(result.data.content))
+            }
+            else {
+                let orders = result.data.content;
+                let findingOrder =  orders.find((order:any) => String(order.id) === keyword);
+                dispatch(fetchDataRequestSuccessAction(findingOrder))
+            }
+            
         } 
         catch (error:any) {
             dispatch(fetchDataRequestFailAction(error.response.data))
@@ -46,7 +54,7 @@ export const deleteOrderAction = (id:number):any => {
                     text: 'Bạn đã xóa thành công !',
                 })
             }
-            dispatch(fetchData())
+            dispatch(fetchData(''))
         } 
         catch (error:any) {
             await Swal.fire({
@@ -70,7 +78,7 @@ export const updateOrderAction = (id:number,model:JourneyItem,closeModal:any):an
                 })
             }
             await closeModal()
-            dispatch(fetchData())
+            dispatch(fetchData(''))
         } 
         catch (error:any) {
             await Swal.fire({

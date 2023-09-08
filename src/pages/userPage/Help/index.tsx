@@ -1,13 +1,14 @@
 import { useSelector } from "react-redux"
 import { RootState } from "../../../redux/store"
 import { helpLst, postList } from "../../../util/constants";
-
+import { useTranslation } from "react-i18next";
 export default function HelpPage() {
     const {userLogin} = useSelector((state:RootState) => state.loginReducer);
+    const { t } = useTranslation();
     return (
         <>
             <section className="py-10 container px-5 mx-auto">
-                <h1 className="text-center text-2xl md:text-3xl lg:text-4xl font-medium mb-10">Xin chào {userLogin ? userLogin.user.name : ''}! Chúng tôi có thể giúp gì cho bạn?</h1>
+                <h1 className="text-center text-2xl md:text-3xl lg:text-4xl font-medium mb-10">{t("greeting")} {userLogin ? userLogin.user.name : ''}! Chúng tôi có thể giúp gì cho bạn?</h1>
                 <h3 className="text-xl sm:text-2xl font-medium mb-5">Hướng dẫn khi mới bắt đầu</h3>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
                     {new Array(4).fill(null).map((_,index) => {

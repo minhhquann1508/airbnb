@@ -52,8 +52,8 @@ export default function Footer():JSX.Element {
           <li className='text-gray-500 text-sm'>{t("rules")}</li>
         </ul>
         <ul className='flex gap-3'>
-          <LanguageSwitcher/>
-          {/* <li className='text-gray-500 text-sm'><FontAwesomeIcon icon={faEarthAsia} /> Tiếng việt (VN)</li> */}
+          {/* <LanguageSwitcher/> */}
+          <li className='text-gray-500 text-sm'><FontAwesomeIcon icon={faEarthAsia} /> Tiếng việt (VN)</li>
           <li className='text-gray-500 text-sm'>$USD</li>
         </ul>
       </div>

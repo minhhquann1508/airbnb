@@ -1,4 +1,4 @@
-import { RegisterFormat } from "../types";
+import { RegisterFormat, UserFormat } from "../types";
 import { BaseService } from "./BaseService";
 class AdminManageUserService extends BaseService {
     constructor() {
@@ -17,7 +17,10 @@ class AdminManageUserService extends BaseService {
     }
     addNewUser = (model:RegisterFormat) => {
         return this.post('api/users',model);
-    }   
+    }  
+    updateUser = (model:UserFormat,id:number) => {
+        return this.put(`api/users/${id}`,model);
+    } 
 }
 
 export const adminManageUserService = new AdminManageUserService();

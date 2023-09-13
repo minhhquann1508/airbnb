@@ -172,7 +172,7 @@ export default function Header():JSX.Element {
           <div className='flex gap-2 items-center'>
             <button className='hidden md:block hover:duration-300 hover:bg-gray-100 p-2 rounded-full text-sm font-medium'>{t("become_host")}</button>
             <button className='hidden md:block hover:duration-300 hover:bg-gray-100 w-8 h-8 rounded-full'><FontAwesomeIcon icon={faGlobe} /></button>
-            <Dropdown placement='bottomRight' overlayStyle={{width:200}} menu={{ items }} trigger={['click']}>
+            <Dropdown placement='bottomRight' className='ml-1' overlayStyle={{width:200}} menu={{ items }} trigger={['click']}>
               <div className='flex items-center gap-2 md:gap-4 rounded-full border py-2 px-4 cursor-pointer hover:shadow-xl duration-300'>
                 <button><FontAwesomeIcon icon={faBars} className='text-black'/></button>
                 {renderAvatarBtn()}

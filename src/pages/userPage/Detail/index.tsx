@@ -10,10 +10,12 @@ import { UserComment } from '../../../types';
 import BookingForm from './BookingForm';
 import CommentForm from './CommentForm';
 import Swal from 'sweetalert2';
+import { useTranslation } from 'react-i18next';
 export default function Detail():JSX.Element {
   const [isShowMore,setIsShowMore] = useState(false);
   const {id} = useParams();
   const dispacth = useDispatch();
+  const {t} = useTranslation();
   const {loading,data,error,lstComment} = useSelector((state:RootState) => state.roomDetailReducer);
   const {userLogin} = useSelector((state:RootState) => state.loginReducer);
   useEffect(() => {
@@ -58,10 +60,10 @@ export default function Detail():JSX.Element {
                   )
               })}</p>
               <div className={`${(userLogin?.user.role)?.toLowerCase() === 'admin' ? 'flex' : 'hidden'} px-2 gap-3`}>
-                <button className='text-sm text-gray-500 hover:underline hover:text-green-600 duration-300'>Chỉnh sửa</button>
+                <button className='text-sm text-gray-500 hover:underline hover:text-green-600 duration-300'>{t("edit")}</button>
                 <button className='text-sm text-gray-500 hover:underline hover:text-red-600 duration-300'
                   onClick={() => deleteComment(user.id,Number(id))}
-                >Xóa</button>
+                >{t("delete")}</button>
               </div>
           </div>
         )
@@ -108,16 +110,16 @@ export default function Detail():JSX.Element {
               <FontAwesomeIcon icon={faStar} />
               <span>{(10 - data?.giaTien / 100).toFixed(2)}</span>
             </p>
-            <h1 className='underline'>{data?.giaTien} đánh giá</h1>
+            <h1 className='underline'>{data?.giaTien} {t("reviews")}</h1>
             <p className='flex items-center gap-1'>
             <FontAwesomeIcon icon={faMedal} />
-              <span>Chủ nhà siêu cấp</span>
+              <span>{t("super_host")}</span>
             </p>
           </div>
           {/* Phần phải */}
           <div className='flex gap-5 text-sm md:text-base'>
-            <button className='font-medium flex items-center gap-2'><FontAwesomeIcon icon={faShareFromSquare} /> <span>Chia sẻ</span></button>
-            <button className='font-medium flex items-center gap-2'><FontAwesomeIcon icon={faHeart} /> <span>Lưu</span></button>
+            <button className='font-medium flex items-center gap-2'><FontAwesomeIcon icon={faShareFromSquare} /> <span>{t("share")}</span></button>
+            <button className='font-medium flex items-center gap-2'><FontAwesomeIcon icon={faHeart} /> <span>{t("save")}</span></button>
           </div>
         </div>
         <img src={data?.hinhAnh} alt="anh" />
@@ -127,57 +129,57 @@ export default function Detail():JSX.Element {
         <div className='w-full lg:w-2/3 flex flex-col'>
           <div className='border-b pb-6 border-gray-300'>
             <div className='flex justify-between mb-3'>
-                <h1 className='text-xl md:text-2xl font-medium'>Toàn bộ căn hộ. Chủ nhà Steve</h1>
+                <h1 className='text-xl md:text-2xl font-medium'>{t("all_home")}</h1>
                 <button className='text-2xl text-white w-10 h-10 bg-gray-600 rounded-full'><FontAwesomeIcon icon={faUser} /></button>
             </div>
             <ul className='grid sm:grid-cols-2 md:grid-cols-3 gap-5'>
-              <li className='flex justify-center rounded-xl items-center gap-3 font-medium border px-5 py-5'><FontAwesomeIcon className='text-2xl' icon={faBed} /><span>{data?.giuong} giường đôi</span></li>
-              <li className='flex justify-center rounded-xl items-center gap-3 font-medium border px-5 py-5'><FontAwesomeIcon className='text-2xl' icon={faShower} /><span>{data?.phongTam} Phòng tắm</span></li>
-              <li className='flex justify-center rounded-xl items-center gap-3 font-medium border px-5 py-5'><FontAwesomeIcon className='text-2xl' icon={faHouseUser} /><span>Gia đình chủ nhà sống tại đây</span></li>
+              <li className='flex justify-center rounded-xl items-center gap-3 font-medium border px-5 py-5'><FontAwesomeIcon className='text-2xl' icon={faBed} /><span>{data?.giuong} {data?.giuong >= 2 ? t("beds") : t("bed")}</span></li>
+              <li className='flex justify-center rounded-xl items-center gap-3 font-medium border px-5 py-5'><FontAwesomeIcon className='text-2xl' icon={faShower} /><span>{data?.phongTam} {data?.phongTam >= 2 ? t("bathrooms") : t("bathroom")}</span></li>
+              <li className='flex justify-center rounded-xl items-center gap-3 font-medium border px-5 py-5'><FontAwesomeIcon className='text-2xl' icon={faHouseUser} /><span>{t("family_live")}</span></li>
             </ul>
           </div>
           <div className='flex flex-col gap-5 py-6 border-b border-gray-300'>
             <div className='flex items-center gap-5'>
               <FontAwesomeIcon icon={faMedal}  className='text-2xl'/>
               <div>
-                <h1 className='text-lg font-medium'>Steve là chủ nhà cao cấp</h1>
-                <p className='text-gray-500 text-sm'>Chủ nhà siêu cấp là những chủ nhà có kinh nghiệm, được đánh giá cao và là những người cam kết mang lại quãng thời gian ở tuyệt vời cho khách.</p>
+                <h1 className='text-lg font-medium'>{t("super_host")}</h1>
+                <p className='text-gray-500 text-sm'>{t("super_host_desc")}</p>
               </div>
             </div>
             <div className='flex items-center gap-5'>
               <FontAwesomeIcon icon={faLocation}  className='text-2xl'/>
               <div>
-                <h1 className='text-lg font-medium'>Địa điểm tuyệt vời</h1>
-                <p className='text-gray-500 text-sm'>90% khách gần đây đã xếp hạng 5 sao cho vị trí này.</p>
+                <h1 className='text-lg font-medium'>{t("great_place")}</h1>
+                <p className='text-gray-500 text-sm'>{t("great_place_desc")}</p>
               </div>
             </div>
             <div className='flex items-center gap-5'>
               <FontAwesomeIcon icon={faCalendar}  className='text-2xl'/>
               <div>
-                <h1 className='text-lg font-medium'>Miễn phí hủy trong 48 giờ.</h1>
+                <h1 className='text-lg font-medium'>{t("cancle_order")}</h1>
               </div>
             </div>
           </div>
           <div className='py-6' style={{fontSize:16.5}}>
             <img src="../../../img/detail_logo1.png" width={150} alt="anh" />
             <p className='my-4 leading-8'>
-              Mọi đặt phòng đều được bảo vệ miễn phí trong trường hợp Chủ nhà hủy, thông tin nhà/phòng cho thuê không chính xác và những vấn đề khác như sự cố trong quá trình nhận phòng.
+              {t("air_cover_desc")}
             </p>
-            <button className='font-medium underline'>Tìm hiểu thêm <FontAwesomeIcon icon={faAngleRight} /></button>
+            <button className='font-medium underline'>{t("get_more")}<FontAwesomeIcon icon={faAngleRight} /></button>
           </div>
           <div className='py-6 border-b border-gray-300' style={{fontSize:16.5}}>
-            <h1><FontAwesomeIcon className='mr-3' icon={faLanguage} />Một số thông tin đã được dịch tự động.<span className='font-medium underline'>Hiển thị ngôn ngữ gốc</span></h1>
+            <h1><FontAwesomeIcon className='mr-3' icon={faLanguage} />{t("translate_desc")}</h1>
             <p className='my-4 leading-8'>
               {data?.moTa}
             </p>
-            <button className='font-medium underline'>Hiển thị thêm <FontAwesomeIcon icon={faAngleRight} /></button>
+            <button className='font-medium underline'>{t("get_more")}<FontAwesomeIcon icon={faAngleRight} /></button>
           </div>
           <div className='py-6'>
-            <h1 className='font-medium text-2xl mb-6'>Nơi này có những gì cho bạn</h1>
+            <h1 className='font-medium text-2xl mb-6'>{t("utilities_title")}</h1>
             <div className='grid grid-cols-2 gap-7'>
               <div className='flex gap-5 items-center'>
                 <FontAwesomeIcon className='text-2xl' icon={faUtensils} />
-                <span className={`${data?.bep ? '' : 'line-through'} text-lg`}>Bếp</span>
+                <span className={`${data?.bep ? '' : 'line-through'} text-lg`}>{t("kitchen")}</span>
               </div>
               <div className='flex gap-5 items-center'>
                 <FontAwesomeIcon className='text-2xl' icon={faWifi} />
@@ -185,7 +187,7 @@ export default function Detail():JSX.Element {
               </div>
               <div className='flex gap-5 items-center'>
                 <FontAwesomeIcon className='text-2xl' icon={faElevator} />
-                <span className={`${data?.thangMay ? '' : 'line-through'} text-lg`}>Thang máy</span>
+                <span className={`${data?.thangMay ? '' : 'line-through'} text-lg`}>{t("elevator")}</span>
               </div>
               <div className='flex gap-5 items-center'>
                 <FontAwesomeIcon className='text-2xl' icon={faTelevision} />
@@ -193,23 +195,23 @@ export default function Detail():JSX.Element {
               </div>
               <div className='flex gap-5 items-center'>
               <FontAwesomeIcon className='text-2xl' icon={faTemperatureArrowDown} />
-                <span className={`${data?.dieuHoa ? '' : 'line-through'} text-lg`}>Điều hòa</span>
+                <span className={`${data?.dieuHoa ? '' : 'line-through'} text-lg`}>{t("air_conditioning")}</span>
               </div>
               <div className='flex gap-5 items-center'>
                 <FontAwesomeIcon className='text-2xl' icon={faExplosion} />
-                <span className={`${data?.banUi ? '' : 'line-through'} text-lg`}>Bàn ủi</span>
+                <span className={`${data?.banUi ? '' : 'line-through'} text-lg`}>{t("iron")}</span>
               </div>
               <div className='flex gap-5 items-center'>
                 <FontAwesomeIcon className='text-2xl' icon={faSquareParking} />
-                <span className={`${data?.doXe ? '' : 'line-through'} text-lg`}>Bãi đỗ xe</span>
+                <span className={`${data?.doXe ? '' : 'line-through'} text-lg`}>{t("parking")}</span>
               </div>
               <div className='flex gap-5 items-center'>
                 <FontAwesomeIcon className='text-2xl' icon={faPersonSwimming} />
-                <span className={`${data?.hoBoi ? '' : 'line-through'} text-lg`}>Hồ bơi</span>
+                <span className={`${data?.hoBoi ? '' : 'line-through'} text-lg`}>{t("kitchen")}</span>
               </div>
               <div className='flex gap-5 items-center'>
                 <FontAwesomeIcon className='text-2xl' icon={faSoap} />
-                <span className={`${data?.matGiat ? '' : 'line-through'} text-lg`}>Máy giặt</span>
+                <span className={`${data?.matGiat ? '' : 'line-through'} text-lg`}>{t("washing_machine")}</span>
               </div>
             </div>
           </div>
@@ -222,46 +224,46 @@ export default function Detail():JSX.Element {
       <section className='py-6'>
           <div className='text-xl flex gap-5 mb-8'>
             <h1 className='flex items-center gap-2 font-medium'><FontAwesomeIcon icon={faStar} />{(10-data?.giaTien/100).toFixed(2)}.</h1>
-            <h1 className='flex items-center gap-2 font-medium'><FontAwesomeIcon icon={faComment} />{data?.giaTien + 5} Đánh giá</h1>
+            <h1 className='flex items-center gap-2 font-medium'><FontAwesomeIcon icon={faComment} />{data?.giaTien + 5} {t("reviews")}</h1>
           </div>
           <div className='grid sm:grid-cols-2 gap-5'>
               <div className='flex justify-between mb-3'>
-                <h1 className='font-medium'>Mức độ sạch sẽ</h1>
+                <h1 className='font-medium'>{t("clean")}</h1>
                 <div className='flex items-center gap-5'>
                   <div className='bg-black h-1 w-32 rounded-lg'></div>
                   <span className='font-medium text-sm'>10,0</span>
                 </div>
               </div>
               <div className='flex justify-between mb-3'>
-                <h1 className='font-medium'>Độ chính xác</h1>
+                <h1 className='font-medium'>{t("accuracy")}</h1>
                 <div className='flex items-center gap-5'>
                   <div className='bg-black h-1 w-32 rounded-lg'></div>
                   <span className='font-medium text-sm'>10,0</span>
                 </div>
               </div>
               <div className='flex justify-between mb-3'>
-                <h1 className='font-medium'>Giao tiếp</h1>
+                <h1 className='font-medium'>{t("communicate")}</h1>
                 <div className='flex items-center gap-5'>
                   <div className='bg-black h-1 w-32 rounded-lg'></div>
                   <span className='font-medium text-sm'>10,0</span>
                 </div>
               </div>
               <div className='flex justify-between mb-3'>
-                <h1 className='font-medium'>Vị trí</h1>
+                <h1 className='font-medium capitalize'>{t("location")}</h1>
                 <div className='flex items-center gap-5'>
                   <div className='bg-black h-1 w-32 rounded-lg'></div>
                   <span className='font-medium text-sm'>10,0</span>
                 </div>
               </div>
               <div className='flex justify-between mb-3'>
-                <h1 className='font-medium'>Nhận phòng</h1>
+                <h1 className='font-medium capitalize'>{t("check_in")}</h1>
                 <div className='flex items-center gap-5'>
                   <div className='bg-black h-1 w-32 rounded-lg'></div>
                   <span className='font-medium text-sm'>10,0</span>
                 </div>
               </div>
               <div className='flex justify-between mb-3'>
-                <h1 className='font-medium'>Giá trị</h1>
+                <h1 className='font-medium'>{t("value")}</h1>
                 <div className='flex items-center gap-5'>
                   <div className='bg-black h-1 w-32 rounded-lg'></div>
                   <span className='font-medium text-sm'>10,0</span>
@@ -286,16 +288,16 @@ export default function Detail():JSX.Element {
           <CommentForm/>
       </section>
       <section className='py-6'>
-          <h1 className='font-medium text-2xl mb-6'>Những điều bạn cần biết</h1>
+          <h1 className='font-medium text-2xl mb-6'>{t("note")}</h1>
           <div className='grid sm:grid-cols-2 md:grid-cols-3 gap-5'>
             <ul className='flex flex-col gap-4'>
-              <li className='font-medium'>Nội quy nhà</li>
-              <li>Nhận phòng: 16:00 – 20:00</li>
-              <li>Trả phòng trước 12:00</li>
-              <li>Tối đa {data?.khach} khách</li>
+              <li className='font-medium'>{t("home_rule")}</li>
+              <li>{t("check_in")}: 16:00 – 20:00</li>
+              <li>{t("check_out")} 12:00</li>
+              <li>{t("max")} {data?.khach} {t("guests")}</li>
             </ul>
             <ul className='flex flex-col gap-4'>
-              <li className='font-medium'>An toàn và chỗ ở</li>
+              <li className='font-medium'>{t("safe_place")}</li>
               <li>Không có máy phát hiện khí CO</li>
               <li>Không có máy báo khói</li>
               <li>Không phù hợp với trẻ em và em bé</li>

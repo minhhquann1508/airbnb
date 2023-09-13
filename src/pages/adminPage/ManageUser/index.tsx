@@ -10,8 +10,10 @@ import Swal from "sweetalert2";
 import { Modal, Pagination } from "antd";
 import { useFormik } from "formik";
 import AddUserForm from "./AddUserForm";
+import UpdateUserForm from "./UpdateUserForm";
 export default function ManageUser():JSX.Element {
     const dispatch = useDispatch();
+    const [activeItem,setActiveItem] = useState<UserFormat | null>(null);
     // Xử lý mở đóng modal
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const showModal = () => {
@@ -24,6 +26,21 @@ export default function ManageUser():JSX.Element {
     
     const handleCancel = () => {
         setIsModalOpen(false);
+    };
+
+    //Xử lí mở modal upadte
+    const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
+    const showUpdateModal = (item:UserFormat) => {
+        setActiveItem(item);
+        setIsUpdateModalOpen(true);
+    };
+    
+    const handleUpdateOk = () => {
+        setIsUpdateModalOpen(false);
+    };
+    
+    const handleUpdateCancel = () => {
+        setIsUpdateModalOpen(false);
     };
 
     const [activePage,setActivePage] = useState<number>(1);
@@ -83,6 +100,7 @@ export default function ManageUser():JSX.Element {
                     </td>
                     <td className="px-6 py-4 flex gap-2 flex-wrap">
                         <button className="px-2 py-1 rounded-md bg-green-600 hover:bg-green-700 hover:scale-105 duration-300"
+                            onClick={() => showUpdateModal(user)}
                         ><FontAwesomeIcon className="text-white" icon={faEdit}/></button>
                         <button className="px-2 py-1 rounded-md bg-red-600 hover:bg-red-700 hover:scale-105 duration-300"
                             onClick={() => handleDeleteUserEvent(user.id,activePage)}
@@ -97,6 +115,9 @@ export default function ManageUser():JSX.Element {
         <>
             <Modal footer="" title="Thêm tài khoản" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                <AddUserForm closeModal={handleCancel} activePage={activePage}/>
+            </Modal>
+            <Modal footer="" title="Cập nhật tài khoản" open={isUpdateModalOpen} onOk={handleUpdateOk} onCancel={handleUpdateCancel}>
+               <UpdateUserForm itemData={activeItem} closeModal={handleUpdateCancel} activePage={activePage}/>
             </Modal>
             <h1 className="text-2xl font-medium mb-5">Quản lý người dùng</h1>
             <div className="flex  flex-col md:justify-end md:flex-row gap-3 mb-5">

@@ -1,5 +1,5 @@
 import Swal from "sweetalert2"
-import { Action, RegisterFormat} from "../../../../types"
+import { Action, RegisterFormat, UserFormat} from "../../../../types"
 import {fetchDataFail, fetchDataRequest, fetchDataSuccess} from "./types"
 import { adminManageUserService } from "../../../../services/ManageUserService"
 const fetchDataRequestAction = ():Action => {
@@ -70,6 +70,30 @@ export const addNewUserAction = (model:RegisterFormat,resetForm:any,closeModal:a
                 })
                 await dispatch(fetchData('',page));
                 await resetForm();
+                await closeModal();
+            }
+        } 
+        catch (error:any) {
+            await Swal.fire({
+                icon: 'error',
+                title: 'Oops..!',
+                text: error.response.data.content,
+            })
+        }
+    }
+}
+
+export const updateUserAction = (id:number,model:any,closeModal:any,page:number):any => {
+    return async (dispatch:any) => {
+        try {
+            let result = await adminManageUserService.updateUser(model,id);
+            if(result.status === 200) {
+                await Swal.fire({
+                    icon: 'success',
+                    title: 'Chúc mừng !',
+                    text: 'Cập nhật thành công !',
+                })
+                await dispatch(fetchData('',page));
                 await closeModal();
             }
         } 

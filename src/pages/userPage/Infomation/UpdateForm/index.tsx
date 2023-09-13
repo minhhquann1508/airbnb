@@ -16,7 +16,7 @@ export default function UpdateForm(props:any):JSX.Element {
       email: data?.email || '',
       phone: data?.phone || '',
       birthday: data?.birthday || '',
-      gender: data?.gender || true,
+      gender: data?.gender,
       role: data?.role || 'USER'
     },
     enableReinitialize:true,
@@ -35,7 +35,7 @@ export default function UpdateForm(props:any):JSX.Element {
       </div>
       <div>
         <h1 className="mb-1 font-medium">Email</h1>
-        <input name="email" onChange={formik.handleChange} value={formik.values.email} className="border w-full p-2 rounded-md shadow focus:outline-red-500" type="email" />
+        <input name="email" disabled={true} onChange={formik.handleChange} value={formik.values.email} className="border w-full p-2 rounded-md shadow focus:outline-red-500" type="email" />
       </div>
       <div>
         <h1 className="mb-1 font-medium">Giới tính</h1>

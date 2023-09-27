@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { updateUserAction } from "../duck/action";
 import { UserFormat } from "../../../../types";
+import { updateUserSchema } from "../../../../util/schema";
 
 export default function UpdateUserForm(props:any):JSX.Element {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ export default function UpdateUserForm(props:any):JSX.Element {
       role: itemData.role || 'user'
     },
     enableReinitialize:true,
+    validationSchema:updateUserSchema,
     onSubmit:(values) => {
       dispatch(updateUserAction(values.id,values,closeModal,activePage))
     }
@@ -30,28 +32,32 @@ export default function UpdateUserForm(props:any):JSX.Element {
       formik.setFieldValue(key,itemData[key]);
     }
   },[itemData])
+  const handleChangeGenderInput = (value:boolean):void => {
+    formik.setFieldValue('gender',value)
+  }
+  const handleChangeRoleInput = (value:string):void => {
+    formik.setFieldValue('role',value)
+  }
   return (
     <form onSubmit={formik.handleSubmit} className='py-3'>
         <div className="grid sm:grid-cols-2 gap-5">
             <div>
-                <label className="block mb-2 font-medium text-gray-900">Tên người dùng</label>
+                <label className="block mb-2 font-medium text-gray-900">Id người dùng</label>
                 <input name="id" disabled={true} onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.id} type="text" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-pink-500 block w-full p-2.5" />
-                {/* {formik.touched.name && formik.errors.name ? <p className="text-red-600">{formik.errors.name}</p> : ''} */}
             </div>
             <div>
                 <label className="block mb-2 font-medium text-gray-900">Tên người dùng</label>
                 <input name="name" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.name} type="text" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-pink-500 block w-full p-2.5" />
-                {/* {formik.touched.name && formik.errors.name ? <p className="text-red-600">{formik.errors.name}</p> : ''} */}
+                {formik.touched.name && formik.errors.name ? <p className="text-red-600">{formik.errors.name}</p> : ''}
             </div>
             <div>
                 <label className="block mb-2 font-medium text-gray-900">Email</label>
-                <input name="email" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email} type="email" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-pink-500 block w-full p-2.5" />
-                {/* {formik.touched.email && formik.errors.email ? <p className="text-red-600">{formik.errors.email}</p> : ''} */}
+                <input name="email" disabled={true} onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email} type="email" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-pink-500 block w-full p-2.5" />
             </div>
             <div>
                 <label className="block mb-2 font-medium text-gray-900">Số điện thoại</label>
                 <input type="text" name="phone" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.phone} className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-pink-500 block w-full p-2.5" />
-                {/* {formik.touched.phone && formik.errors.phone ? <p className="text-red-600">{formik.errors.phone}</p> : ''} */}
+                {formik.touched.phone && formik.errors.phone ? <p className="text-red-600">{formik.errors.phone}</p> : ''}
             </div>
             <div>
                 <label className="block mb-2 font-medium text-gray-900">Ngày sinh</label>
@@ -60,7 +66,7 @@ export default function UpdateUserForm(props:any):JSX.Element {
             <div>
                 <label className="block mb-2 font-medium text-gray-900">Giới tính</label>
                 <Select
-                  // onChange={(value) => handleChangeGenderInput(Boolean(value))}
+                  onChange={(value) => handleChangeGenderInput(Boolean(value))}
                   defaultValue={formik.values.gender ? 'Nam' : 'Nữ'}
                   className="border p-1.5 bg-gray-50 rounded-xl focus:outline-pink-500"
                   bordered={false}
@@ -74,7 +80,7 @@ export default function UpdateUserForm(props:any):JSX.Element {
             <div className='col-span-full'>
                 <label className="block mb-2 font-medium text-gray-900">Loại người dùng</label>
                 <Select
-                  // onChange={(value) => handleChangeRoleInput(String(value))}
+                  onChange={(value) => handleChangeRoleInput(String(value))}
                   defaultValue={formik.values.role.toLowerCase() === 'user' ? 'Khách hàng' : 'Quản trị'}
                   className="border p-1.5 bg-gray-50 rounded-xl focus:outline-pink-500"
                   bordered={false}

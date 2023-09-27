@@ -30,18 +30,9 @@ export default function Header():JSX.Element {
   })
   // Hàm render phần nút avatar
   const renderAvatarBtn = ():JSX.Element => {
-    if(userLogin && userLogin?.user?.avatar !== "") {
-      return (
-        <button className=''>
-          <img className='w-5 h-5 md:w-7 md:h-7 rounded-full' src={userLogin?.user?.avatar} alt="avatar" />
-        </button>
-      )
-    }
-    else {
       return (
         <button className='bg-black text-white w-5 h-5 md:w-7 md:h-7 rounded-full'><FontAwesomeIcon icon={faUser} /></button>
       )
-    }
   }
   const handleChange = (value: number) => {
     formik.setFieldValue('location',value);
@@ -49,7 +40,7 @@ export default function Header():JSX.Element {
   useEffect(() => {
     dispatch(fetchData())
   },[]);
-  
+
   let items: MenuProps['items'] = [];
   if(!userLogin) {
     items = [  

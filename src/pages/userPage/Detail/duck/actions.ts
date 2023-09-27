@@ -74,7 +74,8 @@ export const bookingRoomAction = (model:BookingRoomForm,closeModal:any):any => {
                 icon: 'error',
                 title: 'Oops...!',
                 text:error.response.data.content,
-            })
+            });
+            console.log(error);
         }
     }
 }

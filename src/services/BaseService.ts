@@ -1,12 +1,11 @@
 import axios from "axios"
 import { DOMAIN, TOKEN, USER_LOGIN } from "../util/constants"
 const storedValue = localStorage.getItem(USER_LOGIN);
-let accessToken:string = '';
+let accessToken:string;
 if (storedValue) {
     accessToken = JSON.parse(storedValue).token;
 }
 export class BaseService {
-    constructor() {}
     get = (url:string) => {
         return axios({
             method:'GET',

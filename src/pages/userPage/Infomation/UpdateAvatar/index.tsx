@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import {useFormik} from 'formik';
 import { uploadAvatar } from "../duck/actions";
 import Resizer from 'react-image-file-resizer';
+import { useParams } from "react-router-dom";
 export default function UpdateAvatar(props:any) {
     const {closeModal} = props;
     const dispatch = useDispatch();

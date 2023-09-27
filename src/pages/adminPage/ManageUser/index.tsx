@@ -80,6 +80,7 @@ export default function ManageUser():JSX.Element {
         let value = e.target.value;
         formik.setFieldValue('keyword',value);
         setIsKeyword(value);
+        setActivePage(1);
     }
 
     const renderTableContent = ():JSX.Element => {

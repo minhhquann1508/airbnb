@@ -31,7 +31,7 @@ const PayPalButton = (props:any):JSX.Element => {
             // Xử lý sau khi thanh toán thành công
             return actions.order.capture().then((details: any) => {
               // Đây là nơi bạn có thể thực hiện các hành động sau khi thanh toán được chấp nhận
-              if(details.status = 'COMPLETED') {
+              if(details.status === 'COMPLETED') {
                 dispatch(bookingRoomAction(dataBill,closeModal))
               }
           });

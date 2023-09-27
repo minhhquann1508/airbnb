@@ -32,6 +32,11 @@ export default function BookingForm(props:any):JSX.Element {
         },
         onSubmit:(values:BookingRoomForm) => {
             if(userLogin) {
+                for(let key in values) {
+                    if(key === 'ngayDen' || key === 'ngayDi') {
+                        values[key] = dayjs(values[key],'DD/MM/YYYY');
+                    }
+                }
                 showModal(values);
             }
             else {

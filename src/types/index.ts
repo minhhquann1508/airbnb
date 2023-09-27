@@ -56,8 +56,8 @@ export interface RegisterFormat {
 export interface BookingRoomForm {
     id: number,
     maPhong: number,
-    ngayDen: string,
-    ngayDi: string,
+    ngayDen: any,
+    ngayDi: any,
     soLuongKhach: number,
     maNguoiDung: number
 }

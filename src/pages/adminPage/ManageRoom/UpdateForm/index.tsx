@@ -16,7 +16,7 @@ export default function UpdateForm(props:any) {
     useEffect(() => {
         for(let key in itemData) {
             if(key === 'maViTri') {
-                formik.setFieldValue('maViTri',itemData.maViTri);
+                formik.setFieldValue('maViTri',itemData?.maViTri);
             }
             formik.setFieldValue(key,itemData[key]);
         }
@@ -56,7 +56,7 @@ export default function UpdateForm(props:any) {
             if(key === 'tenPhong' || key === 'moTa' || key === 'hinhAnh') {
                 formik.setFieldValue(key,'');
             }
-            if(key === 'khach' || key === 'phongNgu' || key === 'giuong' || key == 'phongTam' || key == 'maViTri') {
+            if(key === 'khach' || key === 'phongNgu' || key === 'giuong' || key === 'phongTam' || key === 'maViTri') {
                 formik.setFieldValue(key,1);
             }
             if(key === 'giaTien') {
@@ -96,7 +96,7 @@ export default function UpdateForm(props:any) {
                 <div className="col-span-full">
                     <label className="block mb-2 font-medium">Vị trí</label>
                     <Select
-                        value={lstLocation?.find((location:LocationFormat) => location.id === formik.values.maViTri).tenViTri}
+                        value={lstLocation?.find((location:LocationFormat) => location.id === formik.values?.maViTri).tenViTri}
                         style={{ width: '100%' }}
                         onChange={handleChangeSelectInput}
                         size="large"

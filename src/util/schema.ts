@@ -43,3 +43,17 @@ export const roomSchema = Yup.object().shape({
     moTa: Yup.string()
         .required('Không được bỏ trống'),
 });
+
+export const updateUserSchema = Yup.object().shape({
+    name: Yup.string()
+        .matches(nameRegex,'Tên không hợp lệ')
+        .required('Tên không được bỏ trống'),
+    phone: Yup.string()
+        .matches(phoneRegex, 'Số điện thoại không hợp lệ')
+        .required('Số điện thoại không được bỏ trống'),
+    birthday:Yup.string()
+        .required('Ngày sinh không được bỏ trống'),
+});
+
+
+
